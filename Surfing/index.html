@@ -1,17 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>HangMan Game</title>
+    <title>HangMan Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
+
 <body>
-	<div id="word-blanks"></div>
-	<p id="wins"></p>
-	<p id="guessRemain"></p>
-	<p id="wrongGuess"></p>
-
+    <div class="row">
+        <div class="col-md-3">
+            <img id="woodyL" src="assets/images/woodyL.jpg"></img>
+        </div>
+        <div class="col-md-6">
+            <img id="logo" src="assets/images/header.png"></img>
+        </div>
+        <div class="col-md-3">
+            <img id="woodyR" src="assets/images/woody.jpg"></img>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p class="gameInfo"> Welcome to Surfing Hangman! Pick a random letter and try to guess the famous surf breaks. You start with 10 guesses and when you win or lose press Enter to reset to another word to guess.</p>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-4">
+            <div id="startInfo">
+                <p> Press start to initiate Hangman!</p>
+                <button id="stButton" onclick="startGame()">Start Game</button>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <div class="surfPic">
+                <img id="surfPic" src="assets/images/pipeline.jpg"></img>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="gameBox">
+                <p class="gameInfo">Wins : 0<span id="wins"></span></p>
+                <p class="gameInfo">Guesses Remain : <span id="guessRemain"></span></p>
+                <p class="gameInfo">Wrong guesses : <span id="wrongGuess"></span></p>
+                <div class="underscores"><span id="word-blanks"></span></div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
 </body>
-
-<script type="text/javascript">
+<script type="text/javascript" src="assets/javascript/game.js">
+	/*
 	//Globabl Variables
 	//array that includes the hangman words
 	var words = ['pipeline','sunset','mavericks','windnsea','teahupoo','cloudbreak','swamis','trestles']
@@ -35,6 +80,7 @@
 		randWord = words[Math.floor(Math.random()* words.length)]
 		
 		console.log(randWord);
+		underScores= [];
 
 		for(var i = 0; i < randWord.length; i ++){
 				underScores.push('_');
@@ -45,23 +91,42 @@
 		//reset
 		wrongLetter =[];
 		guessesLeft =10;
+	}
+	function reset(){
+		wrongLetter = [];
+		guessesLeft = 10;
+		underScores = [];
+		userGuesses = [];
+		startGame();
 
-				
+	}
+	function checkLetter(){
+		if(wrongLetter = userGuess){
+
+
+		}
 	}
 	function winLose()
 	{
 		if(winCounter === randWord.length){
 			alert('Winner');
+			wins++;
+			document.getElementById('wins').innerHTML = wins;
+			reset();		
+
 
 		}else if(guessesLeft === 0){
 			alert('You Lose');
+			wrongLetter = [];
+			underScores = [];
+			userGuesses = [];
 		}
 	}
 	//userInput
 	document.onkeyup = function(event)
 	{
 		userGuess = event.key;
-	//	console.log(userGuess);
+		console.log(userGuess);
 
 		//checks if user word matches guesses
 		if(randWord.indexOf(userGuess) > -1)
@@ -71,9 +136,11 @@
 				if(randWord[i] === userGuess)
 				{
 					underScores[i] = userGuess;
+					document.getElementById('word-blanks').innerHTML = underScores.join(' ');
 					console.log(underScores);
 					winCounter++;
 					winLose();
+
 				}
 			}
 		}		
@@ -95,12 +162,5 @@
 
 	//Main
 	//============================
-
-	startGame();
-
-
-
-
-
 </script>
 </html>
